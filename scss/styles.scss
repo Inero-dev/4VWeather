@@ -1,0 +1,35 @@
+@import './variables.scss';
+@import './mixins.scss';
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+body{
+    background-image: url(../imagenes/istockphoto-1191343717-612x612.jpg);
+    background-size: cover;        
+    background-repeat: no-repeat;    
+    background-attachment: fixed;
+    background-position-y:0 ;
+}
+
+.contenedor {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+#cardHome{
+    text-align: center;
+    
+}
+.card{
+    background-color: $card-bgc;
+    border-color: $card-borderc;
+    width: 100%;
+    height:80%;
+    position: relative;
+    @include letras("Quicksand", $font-color, 'f');
+
+    h1{
+        @include letras("Quicksand", $font-color, 'True');
+        padding-top: 13%;
+    }
+}

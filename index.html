@@ -16,7 +16,7 @@
   <header>
     <nav class="navbar bg-body-tertiary fixed-top coll">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Cuatrovientos Eeather</a> <!--PONER EL ESTILO DE LETRA RARO-->
+        <a class="navbar-brand" href="#">Cuatrovientos Weather</a> <!--PONER EL ESTILO DE LETRA RARO-->
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
           aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -69,7 +69,28 @@
       </div>
     </nav>
   </header>
+  <div class="contenedor">
+    <div class="card" id="cardHome">
+      <div class="card-body"> <!--EN LAS CARDS SCSS: TITULO, LETRA DISTINTA EN TODOS LOS SITIOS(MIXIN), TAMAÑO DE CARDS, COLOR DE LAS CARDS FONDO-->
+        <h1>
+          Your weather app!!
+        </h1>
+        <h3>
+          Encuentra la informacion que necesitas a diario sobre <br>el tiempo que va a hacer
+        </h3>
+      </div>
+    </div>
 
+    <div class="card d-none" id="cardSearch"> <!--hay que eliminar esto para que se vea-->
+      <div class="card-body"> 
+        <h1>
+          Your weather app!!
+        </h1>
+        
+      </div>
+    </div>
+  </div>
+  
 
 
 </body>

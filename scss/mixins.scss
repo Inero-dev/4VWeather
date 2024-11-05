@@ -1,0 +1,7 @@
+@mixin letras($tipografia, $color, $negrita){
+    font-family: $tipografia;
+    color: $color;
+    @if $negrita=='True'{
+        font-weight: bold;
+    }
+}
