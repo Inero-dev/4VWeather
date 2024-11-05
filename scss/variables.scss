@@ -1,5 +1,9 @@
 @use 'sass:color';
-$card-bgc: rgba(240, 248, 255, 0.362);
-$card-borderc: rgba(78, 255, 196, 0.456);
+$primary: rgb(255, 255, 255, 0.362);
+$secondary: rgba(78, 255, 196, 0.456);
+$remark: rgba(19, 32, 43, 0.856);
 
-$font-color: rgba(19, 32, 43, 0.856)
+$card-bgc: $primary;
+$card-borderc: $secondary;
+
+$font-color: $remark;
