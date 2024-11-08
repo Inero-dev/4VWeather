@@ -112,19 +112,16 @@
                 <div class="card-body">
                   <div class="input-group">
                     <form action="submit" id="frmCiudad" class=" w-100">
-
-                      <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="input-group-button-right">
-                        <button type="button" class="btn btn-outline-secondary" id="input-group-button-right">Button</button>
+                      <label for="buscarCiudad" class="form-label">Inserta un nombre y selecciona:</label>
+                      <div class="input-group w-100">
+                        <input list="opciones" id="buscarCiudad" class="form-control form-control-lg"
+                          aria-label="Large select" placeholder="Type or select an option">
+                        <button type="button" class="btn btn-outline-secondary" id="btnBuscar">Buscar</button>
                       </div>
-
-                      <label for="my-input" class="form-label">Inserta un nombre y selecciona:</label>
-                      <input list="opciones" id="buscarCiudad" class="form-control form-control-lg w-100"
-                        aria-label="Large select" placeholder="Type or select an option">
                       <datalist id="opciones">
-                        
+
                       </datalist>
-                    </form>                    
+                    </form>
                   </div>
                 </div>
               </div>
