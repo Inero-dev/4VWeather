@@ -8,7 +8,7 @@ $(document).ready(function () {
     });
 
     function cargarCiudades(ciudad, pais, state) {
-        const apiKey = '1c5507e30079bc885612e3feb2cd6da9'; // Verifica si es válida
+        const apiKey = '82f9e371a8ee6adf0e59110eb8a882c2'; // Verifica si es válida
         const apiUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${ciudad}&limit=5&appid=${apiKey}`;
 
         return $.get(apiUrl, function (data) {
@@ -63,185 +63,232 @@ $(document).ready(function () {
             } else {
                 lat = ciudades[0].lat;
                 lon = ciudades[0].lon;
+                //sacarTiempo();
                 sacarTiempo();
             }
         });
     }
 
     function sacarTiempo() {
-        const apiKey = '50de2cdfa960168b49159e1bc2baa4a5'; // Verifica si es válida
-        const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+        const apiKey = '82f9e371a8ee6adf0e59110eb8a882c2';
+        const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
-        $.get(apiUrl, function (data) {
-            pintarTiempoHoy(data)
-        }).fail(function () {
-            alert('Error al realizar la solicitud a la API de tiempo.');
+        $.ajax({
+            url: apiUrl,
+            method: 'GET',
+            success: function (data) {
+                pintarTiempoHoy(data);
+                pintarDias(data);
+            },
+            error: function () {
+                alert('Error al realizar la solicitud a la API de tiempo.');
+            }
         });
     }
 
     //funciones para el tiempo:
 
-    function setImagen(iconId) {
+    function pintarDias(tiempo) {
+        $('#elTiempo4Dias').empty();
+        alert("te va");
+        for (let i = 0; i < 4; i++) { // Solo tomaremos los primeros 4 registros para los 4 días.
+            const dayData = tiempo.list[i * 8]; // Usamos i * 8 para tomar datos aproximadamente cada 24 horas (3 horas * 8 = 24 horas)
 
+            const cardDia = `
+                <div class="col-lg-4 col-md-6 col-sm-12 d-flex pt-3">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="card-title">${new Date(dayData.dt * 1000).toLocaleDateString()}</h5>
+                    </div>
+                    <div class="card-body">
+                      <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+                          <div class="container">
+                            <div class="row">
+                              <div class="col pt-3 align-items-center text-center">
+                                <h1>
+                                  ${(dayData.main.temp - 273.15).toFixed(1)}ºC
+                                </h1>
+                              </div>
+                              <div class="col">
+                                <img src="https://openweathermap.org/img/wn/${dayData.weather[0].icon}@2x.png" class="rounded d-block w-50" alt="Weather icon">
+                              </div>
+                              <div class="col">
+                                <p>${dayData.weather[0].main}</p>
+                                <p>${dayData.weather[0].description}</p>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <p class="text-primary">Min: ${(dayData.main.temp_min - 273.15).toFixed(1)}ºC</p>
+                              </div>
+                              <div class="col text-center">
+                                <p class="text-danger">Max: ${(dayData.main.temp_max - 273.15).toFixed(1)}ºC</p>
+                              </div>                           
+                            </div>
+                                <div class="row">
+                                <div class="col">
+                                    <p>Viento: ${dayData.wind.speed} m/s, Dirección: ${dayData.wind.deg}°</p>
+                                </div>
+                                </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `;
+            $('#elTiempo4Dias').append(cardDia);
+        }
     }
 
+
     function pintarTiempoHoy(tiempo) {
+        $('#elTiempoHoy').empty();
+        const dayData = tiempo.list[0];
+
         const cadGeneral = `
-    <div class="card w-50">
-      <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#general" role="tab"
-              aria-controls="home" aria-selected="true">General</a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#dia" role="tab"
-              aria-controls="profile" aria-selected="false">Día</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#noche" role="tab"
-              aria-controls="profile" aria-selected="false">Noche</a>
-          </li>
-        </ul>
-      </div>
-      <div class="card-body">
-        <div class="tab-content" id="myTabContent">
-          <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
-            <div class="container">
-              <div class="row">
-                <div class="col pt-3 align-items-center text-center">
-                  <h1>
-                    ${(tiempo.current.temp - 273.15).toFixed(1)}ºC
-                  </h1>
-                </div>
-                <div class="col">
-                  <img src="https://openweathermap.org/img/wn/${tiempo.current.weather[0].icon}@2x.png" class="rounded d-block w-50" alt="Weather icon">
-                </div>
-                <div class="col">
-                  <p>${tiempo.current.weather[0].main}</p>
-                  <p>${tiempo.current.weather[0].description}</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <p class="text-primary ps-5">Min: ${(tiempo.daily[0].temp.min - 273.15).toFixed(1)}ºC</p>
-                </div>
-                <div class="col text-center">
-                  <p class="text-danger">Max: ${(tiempo.daily[0].temp.max - 273.15).toFixed(1)}ºC</p>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col">
-                  <p>Viento: ${tiempo.current.wind_speed} km/h</p>
-                </div>
-                <div class="col">
-                  <p>Dirección: ${tiempo.current.wind_deg}°</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <p>Sensación térmica: ${(tiempo.current.feels_like - 273.15).toFixed(1)}ºC</p>
-                </div>
-                <div class="col">
-                  <p>Porcentaje de nubes: ${tiempo.current.clouds}%</p>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <p>Humedad: ${tiempo.current.humidity}%</p>
-                </div>
-                <div class="col">
-                  <p>Precipitaciones: ${(tiempo.daily[0].rain || 0).toFixed(2)} mm/h</p>
-                </div>
-              </div>
+        <div class="card w-50">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#general" role="tab"
+          aria-controls="home" aria-selected="true">General</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="precipitaciones-tab" data-bs-toggle="tab" href="#precipitaciones" role="tab"
+          aria-controls="precipitaciones" aria-selected="false">Precipitaciones</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="aire-tab" data-bs-toggle="tab" href="#aire" role="tab"
+          aria-controls="aire" aria-selected="false">Aire</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <div class="tab-content" id="myTabContent">
+      <!-- Tab General -->
+      <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+        <div class="container">
+          <div class="row">
+            <div class="col pt-3 align-items-center text-center">
+              <h1>${(dayData.main.temp - 273.15).toFixed(1)}ºC</h1>
+            </div>
+            <div class="col">
+              <img src="https://openweathermap.org/img/wn/${dayData.weather[0].icon}@2x.png" class="rounded d-block w-50" alt="Weather icon">
+            </div>
+            <div class="col">
+              <p>${dayData.weather[0].main}</p>
+              <p>${dayData.weather[0].description}</p>
             </div>
           </div>
-          <div class="tab-pane fade" id="dia" role="tabpanel" aria-labelledby="dia-tab">
-            <div class="container">
-              <div class="row">
-                <div class="col pt-3 ps-5 align-items-center">
-                  <h1>${(tiempo.daily[0].temp.day - 273.15).toFixed(1)}ºC</h1>
-                </div>
-                <div class="col">
-                  <img src="https://openweathermap.org/img/wn/${tiempo.daily[0].weather[0].icon}@2x.png" class="rounded d-block w-50" alt="Weather icon">
-                </div>
-                <div class="col">
-                  <p>${tiempo.daily[0].weather[0].main}</p>
-                  <p>${tiempo.daily[0].weather[0].description}</p>
-                </div>
-              </div>
-              <hr>
-              <div class="container">
-                <div class="row">
-                  <div class="col">
-                    <p>Viento: ${tiempo.daily[0].wind_speed} km/h</p>
-                  </div>
-                  <div class="col">Amanecer: ${new Date(tiempo.daily[0].sunrise * 1000).toLocaleTimeString()}</div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <p>Sensación térmica: ${(tiempo.daily[0].feels_like.day - 273.15).toFixed(1)}ºC</p>
-                  </div>
-                  <div class="col">
-                    <p>Porcentaje de nubes: ${tiempo.daily[0].clouds}%</p>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <p>Humedad: ${tiempo.daily[0].humidity}%</p>
-                  </div>
-                  <div class="col">
-                    <p>Precipitaciones: ${(tiempo.daily[0].rain || 0).toFixed(2)} mm/h</p>
-                  </div>
-                </div>
-              </div>
+          <div class="row">
+            <div class="col">
+              <p class="text-primary ps-5">Min: ${(dayData.main.temp_min - 273.15).toFixed(1)}ºC</p>
             </div>
-          </div>
-          <div class="tab-pane fade" id="noche" role="tabpanel" aria-labelledby="noche-tab">
-            <div class="container">
-              <div class="row">
-                <div class="col pt-3 ps-5 align-items-center">
-                  <h1>${(tiempo.daily[0].temp.night - 273.15).toFixed(1)}ºC</h1>
-                </div>
-                <div class="col">
-                  <img src="https://openweathermap.org/img/wn/${tiempo.daily[0].weather[0].icon}@2x.png" class="rounded d-block w-50" alt="Weather icon">
-                </div>
-                <div class="col">
-                  <p>${tiempo.daily[0].weather[0].main}</p>
-                  <p>${tiempo.daily[0].weather[0].description}</p>
-                </div>
-              </div>
-              <hr>
-              <div class="container">
-                <div class="row">
-                  <div class="col">
-                    <p>Viento: ${tiempo.daily[0].wind_speed} km/h</p>
-                  </div>
-                  <div class="col">Atardecer: ${new Date(tiempo.daily[0].sunset * 1000).toLocaleTimeString()}</div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <p>Sensación térmica: ${(tiempo.daily[0].feels_like.night - 273.15).toFixed(1)}ºC</p>
-                  </div>
-                  <div class="col">
-                    <p>Porcentaje de nubes: ${tiempo.daily[0].clouds}%</p>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <p>Humedad: ${tiempo.daily[0].humidity}%</p>
-                  </div>
-                  <div class="col">
-                    <p>Precipitaciones: ${(tiempo.daily[0].rain || 0).toFixed(2)} mm/h</p>
-                  </div>
-                </div>
-              </div>
+            <div class="col text-center">
+              <p class="text-danger">Max: ${(dayData.main.temp_max - 273.15).toFixed(1)}ºC</p>
             </div>
           </div>
         </div>
       </div>
-    </div>`;
-        document.body.innerHTML = cadGeneral;
+
+      <!-- Tab Precipitaciones -->
+      <div class="tab-pane fade" id="precipitaciones" role="tabpanel" aria-labelledby="precipitaciones-tab">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <p>Probabilidad: ${(dayData.pop * 100).toFixed(0)}%</p>
+            </div>
+            <div class="col">
+              <p>Porcentaje de nubes: ${dayData.clouds.all}%</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p>Lluvia: ${(dayData.rain ? dayData.rain["3h"] : 0).toFixed(2)} mm</p>
+            </div>
+            <div class="col">
+              <p>Nieve: ${(dayData.snow ? dayData.snow["3h"] : 0).toFixed(2)} mm</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Aire -->
+      <div class="tab-pane fade" id="aire" role="tabpanel" aria-labelledby="aire-tab">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h4>Sensación térmica: ${(dayData.main.feels_like - 273.15).toFixed(1)}ºC</h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p>Viento: ${dayData.wind.speed} m/s</p>
+            </div>
+            <div class="col">
+              <p>Dirección: ${dayData.wind.deg}°</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <p>Presión: ${dayData.main.pressure} hPa</p>
+            </div>
+            <div class="col">
+              <p>Humedad: ${dayData.main.humidity}%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+        $('#elTiempoHoy').append(cadGeneral);
     }
+
+    $('#btnUbicacion').on('click', function () {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    // Obtener latitud y longitud del objeto position
+                    const latitud = position.coords.latitude;
+                    const longitud = position.coords.longitude;
+
+                    // Mostrar resultados en el HTML
+                    lat = latitud;
+                    lon = longitud;
+
+                    // Puedes ahora usar `latitud` y `longitud` en otras funciones
+                    //sacarTiempo();
+                    sacarTiempo();
+                },
+                function (error) {
+                    // Manejo de errores
+                    switch (error.code) {
+                        case error.PERMISSION_DENIED:
+                            alert("Permiso denegado por el usuario.");
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            alert("La información de ubicación no está disponible.");
+                            break;
+                        case error.TIMEOUT:
+                            alert("La solicitud de ubicación ha caducado.");
+                            break;
+                        case error.UNKNOWN_ERROR:
+                            alert("Error desconocido al obtener ubicación.");
+                            break;
+                    }
+                }
+            );
+        } else {
+            alert("La geolocalización no es soportada por este navegador.");
+        }
+    });
+
+
+
+
 });

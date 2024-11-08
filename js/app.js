@@ -1,28 +1,30 @@
 jQuery(document).ready(function () {
-    var cardHome = $( "#cardHome" );
-    var cardSearch =$( "#cardSearch" );
-    var cardLocalitation =$( "#cardLocalitation" );
+    var cardHome = $("#cardHome");
+    var divSearch =$("#search");
+    var divLocation =$("#location");
+    var cardBuscar =$("#cardSearch");
 
-    cardSearch.hide();
-    cardLocalitation.hide();
+    divSearch.hide();
+    divLocation.hide();
+    cardBuscar.hide();
 
 
     $("#lnkHome").on('click', function() {
         cardSearch.hide();
-        cardLocalitation.hide();
         cardHome.show();
     });
 
-    $("#lnkLocation").on('click', function() {
-        cardSearch.hide();
-        cardLocalitation.show();
+    $("#btnUbicacion").on('click', function() {
+        divSearch.hide();
+        divLocation.show();
         cardHome.hide();
+        cardBuscar.show();
     });
 
     $("#lnkSearch").on('click', function() {
-        cardSearch.show();
-        cardLocalitation.hide();
+        divSearch.show();
+        divLocation.hide();
         cardHome.hide();
+        cardBuscar.show();
     });
-    //BUSCAR DENTRO DE ALGO DIAPOS. 14 (https://aula0.cuatrovientos.org/pluginfile.php/142372/mod_resource/content/1/UT3_JQUERY.pptx.pdf)
 });
