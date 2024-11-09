@@ -26,24 +26,25 @@
 
 <body class="p-4 m-2 border-0 bd-example m-0 border-0">
   <header>
-    <nav class="navbar bg-body-tertiary fixed-top coll">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Cuatrovientos Weather</a>
+    <nav class="navbar bg-body-tertiary fixed-top coll ">
+      <div class="container-fluid ">
+        <a class="navbar-brand" href="#" id="titulo">Cuatrovientos Weather</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
           aria-controls="staticBackdrop">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop"
+        <div class="offcanvas offcanvas-end pt-4" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop"
           aria-labelledby="staticBackdropLabel">
           <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menú Cuatrovientos</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <div class="offcanvas-body h-100 ">
+            <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
               <li class="nav-item">
                 <div class="container-fluid">
-                  <a class="nav-link active" aria-current="page" href="#" id="lnkHome">
+                  <a class="ps-2 nav-link" aria-current="page" href="#" id="lnkHome" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
+                  aria-controls="staticBackdrop">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                       class="bi bi-house" viewBox="0 0 16 16">
                       <path
@@ -55,7 +56,8 @@
               </li>
               <li class="nav-item">
                 <div class="container-fluid">
-                  <a class="nav-link" href="#" id="lnkSearch">
+                  <a class="ps-2 nav-link" href="#" id="lnkSearch" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
+                  aria-controls="staticBackdrop">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                       class="bi bi-search" viewBox="0 0 16 16">
                       <path
@@ -67,7 +69,8 @@
               </li>
               <li class="nav-item">
                 <div class="container-fluid">
-                  <a class="nav-link" href="#" id="btnUbicacion">
+                  <a class="ps-2 nav-link" href="#" id="btnUbicacion" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
+                  aria-controls="staticBackdrop">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                       class="bi bi-geo-alt" viewBox="0 0 16 16">
                       <path
@@ -78,6 +81,42 @@
                   </a>
                 </div>
               </li>
+              <li class="nav-item">
+                <div class="container-fluid">
+                  <a class="ps-2 nav-link" href="#" id="translate_button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="bi bi-chat-dots" viewBox="0 0 16 16">
+                      <path
+                        d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+                      <path
+                        d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9 9 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.4 10.4 0 0 1-.524 2.318l-.003.011a11 11 0 0 1-.244.637c-.079.186.074.394.273.362a22 22 0 0 0 .693-.125m.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6-3.004 6-7 6a8 8 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a11 11 0 0 0 .398-2" />
+                    </svg>
+                    Traducir
+                  </a>
+                  <!-- Contenedor de Google Translate -->
+                  <div id="google_translate_element" style="display: none;"></div>
+
+                  <script type="text/javascript">
+                    // Función para inicializar el widget de traducción
+                    function googleTranslateElementInit() {
+                      new google.translate.TranslateElement({
+                        pageLanguage: 'es',
+                        includedLanguages: 'en,fr,de,it,pt'
+                      }, 'google_translate_element');
+                    }
+
+                    // Evento para mostrar el widget al hacer clic en el botón
+                    document.getElementById('translate_button').addEventListener('click', function () {
+                      document.getElementById('google_translate_element').style.display = 'block';
+                      googleTranslateElementInit();
+                    });
+                  </script>
+
+                  <!-- Carga del script de Google Translate -->
+                  <script type="text/javascript"
+                    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
@@ -85,10 +124,10 @@
     </nav>
   </header>
 
+
   <div class="contenedor">
     <div class="card" id="cardHome">
       <div class="card-body">
-        <!--EN LAS CARDS SCSS: TITULO, LETRA DISTINTA EN TODOS LOS SITIOS(MIXIN), TAMAÑO DE CARDS, COLOR DE LAS CARDS FONDO-->
         <h1>
           Your weather app!!
         </h1>
@@ -139,269 +178,8 @@
         <div class="container pt-5">
           <div class="row justify-content-center" id="elTiempoHoy">
 
-            <!--<div class="card w-50">
-              <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                  <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#general" role="tab"
-                      aria-controls="home" aria-selected="true">General</a>
-                  </li>
-                  <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="precipitaciones-tab" data-bs-toggle="tab" href="#precipitaciones" role="tab"
-                      aria-controls="precipitaciones" aria-selected="false">Precipitaciones</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="aire-tab" data-bs-toggle="tab" href="#aire" role="tab"
-                      aria-controls="aire" aria-selected="false">Aire</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="card-body">
-                <div class="tab-content" id="myTabContent">
-
-                  <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
-                    <div class="container">
-                      <div class="row">
-                        <div class="col pt-3 align-items-center text-center">
-                          <h1>${(dayData.main.temp - 273.15).toFixed(1)}ºC</h1>
-                        </div>
-                        <div class="col">
-                          <img src="https://openweathermap.org/img/wn/${dayData.weather[0].icon}@2x.png" class="rounded d-block w-50" alt="Weather icon">
-                        </div>
-                        <div class="col">
-                          <p>${dayData.weather[0].main}</p>
-                          <p>${dayData.weather[0].description}</p>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <p class="text-primary ps-5">Min: ${(dayData.main.temp_min - 273.15).toFixed(1)}ºC</p>
-                        </div>
-                        <div class="col text-center">
-                          <p class="text-danger">Max: ${(dayData.main.temp_max - 273.15).toFixed(1)}ºC</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            
-                  <div class="tab-pane fade" id="precipitaciones" role="tabpanel" aria-labelledby="precipitaciones-tab">
-                    <div class="container">
-                      <div class="row">
-                        <div class="col">
-                          <p>Probabilidad: ${(dayData.pop * 100).toFixed(0)}%</p>
-                        </div>
-                        <div class="col">
-                          <p>Porcentaje de nubes: ${dayData.clouds.all}%</p>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <p>Lluvia: ${(dayData.rain ? dayData.rain["3h"] : 0).toFixed(2)} mm</p>
-                        </div>
-                        <div class="col">
-                          <p>Nieve: ${(dayData.snow ? dayData.snow["3h"] : 0).toFixed(2)} mm</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            
-                  <div class="tab-pane fade" id="aire" role="tabpanel" aria-labelledby="aire-tab">
-                    <div class="container">
-                      <div class="row">
-                        <div class="col">
-                          <h4>Sensación térmica: ${(dayData.main.feels_like - 273.15).toFixed(1)}ºC</h4>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <p>Viento: ${dayData.wind.speed} m/s</p>
-                        </div>
-                        <div class="col">
-                          <p>Dirección: ${dayData.wind.deg}°</p>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <p>Presión: ${dayData.main.pressure} hPa</p>
-                        </div>
-                        <div class="col">
-                          <p>Humedad: ${dayData.main.humidity}%</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>-->
-            
-            
           </div>
           <div class="row pt-4" id="elTiempo4Dias">
-
-            <!--<div class="col-lg-4 col-md-6 col-sm-12 d-flex  pt-3">
-              <div class="card">
-                <div class="card-header">
-                  <h5 class="card-title">12/11/2024</h5>
-                </div>
-                <div class="card-body">
-                  <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
-                      <div class="container">
-                        <div class="row">
-                          <div class="col pt-3 align-items-center text-center">
-                            <h1>
-                              22.3ºC
-                            </h1>
-                          </div>
-                          <div class="col">
-                            <img src="https://cdn-icons-png.flaticon.com/512/76/76503.png" class="rounded d-block w-50" alt="Weather icon">
-                          </div>
-                          <div class="col">
-                            <p>Clear</p>
-                            <p>clear sky</p>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <p class="text-primary">Min: 15.2ºC</p>
-                          </div>
-                          <div class="col text-center">
-                            <p class="text-danger">Max: 25.4ºC</p>
-                          </div>
-                          <div class="col">
-                            <p>Viento: 10 km/h, Dirección: 180°</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 col-sm-12 d-flex  pt-3">
-              <div class="card">
-                <div class="card-header">
-                  <h5 class="card-title">12/11/2024</h5>
-                </div>
-                <div class="card-body">
-                  <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
-                      <div class="container">
-                        <div class="row">
-                          <div class="col pt-3 align-items-center text-center">
-                            <h1>
-                              22.3ºC
-                            </h1>
-                          </div>
-                          <div class="col">
-                            <img src="https://cdn-icons-png.flaticon.com/512/76/76503.png" class="rounded d-block w-50" alt="Weather icon">
-                          </div>
-                          <div class="col">
-                            <p>Clear</p>
-                            <p>clear sky</p>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <p class="text-primary ps-5">Min: 15.2ºC</p>
-                          </div>
-                          <div class="col text-center">
-                            <p class="text-danger">Max: 25.4ºC</p>
-                          </div>
-                          <div class="col">
-                            <p>Viento: 10 km/h, Dirección: 180°</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="col-lg-4 col-md-6 col-sm-12 d-flex  pt-3">
-              <div class="card">
-                <div class="card-header">
-                  <h5 class="card-title">12/11/2024</h5>
-                </div>
-                <div class="card-body">
-                  <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
-                      <div class="container">
-                        <div class="row">
-                          <div class="col pt-3 align-items-center text-center">
-                            <h1>
-                              22.3ºC
-                            </h1>
-                          </div>
-                          <div class="col">
-                            <img src="https://cdn-icons-png.flaticon.com/512/76/76503.png" class="rounded d-block w-50" alt="Weather icon">
-                          </div>
-                          <div class="col">
-                            <p>Clear</p>
-                            <p>clear sky</p>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <p class="text-primary ps-5">Min: 15.2ºC</p>
-                          </div>
-                          <div class="col text-center">
-                            <p class="text-danger">Max: 25.4ºC</p>
-                          </div>
-                          <div class="col">
-                            <p>Viento: 10 km/h, Dirección: 180°</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 col-sm-12 d-flex  pt-3">
-              <div class="card">
-                <div class="card-header">
-                  <h5 class="card-title">12/11/2024</h5>
-                </div>
-                <div class="card-body">
-                  <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
-                      <div class="container">
-                        <div class="row">
-                          <div class="col pt-3 align-items-center text-center">
-                            <h1>
-                              22.3ºC
-                            </h1>
-                          </div>
-                          <div class="col">
-                            <img src="https://cdn-icons-png.flaticon.com/512/76/76503.png" class="rounded d-block w-50" alt="Weather icon">
-                          </div>
-                          <div class="col">
-                            <p>Clear</p>
-                            <p>clear sky</p>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <p class="text-primary ps-5">Min: 15.2ºC</p>
-                          </div>
-                          <div class="col text-center">
-                            <p class="text-danger">Max: 25.4ºC</p>
-                          </div>
-                          <div class="col">
-                            <p>Viento: 10 km/h, Dirección: 180°</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            -->
 
           </div>
 
@@ -419,6 +197,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
     crossorigin="anonymous"></script>
+  <script type="text/javascript"
+    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 

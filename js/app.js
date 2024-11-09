@@ -10,7 +10,7 @@ jQuery(document).ready(function () {
 
 
     $("#lnkHome").on('click', function() {
-        cardSearch.hide();
+        cardBuscar.hide();
         cardHome.show();
     });
 
@@ -19,6 +19,8 @@ jQuery(document).ready(function () {
         divLocation.show();
         cardHome.hide();
         cardBuscar.show();
+        $('#elTiempo4Dias').empty();
+        $('#elTiempoHoy').empty();
     });
 
     $("#lnkSearch").on('click', function() {
@@ -26,5 +28,9 @@ jQuery(document).ready(function () {
         divLocation.hide();
         cardHome.hide();
         cardBuscar.show();
+        $('#elTiempo4Dias').empty();
+        $('#elTiempoHoy').empty();
     });
+
+    
 });

@@ -45,7 +45,6 @@ $(document).ready(function () {
         const buscado = $('#buscarCiudad').val();
         let location;
         let pais, state;
-
         if (buscado.includes("/")) {
             const buscandoDatos = buscado.split('/');
             location = buscandoDatos[2];
@@ -63,7 +62,6 @@ $(document).ready(function () {
             } else {
                 lat = ciudades[0].lat;
                 lon = ciudades[0].lon;
-                //sacarTiempo();
                 sacarTiempo();
             }
         });
@@ -90,7 +88,6 @@ $(document).ready(function () {
 
     function pintarDias(tiempo) {
         $('#elTiempo4Dias').empty();
-        alert("te va");
         for (let i = 0; i < 4; i++) { // Solo tomaremos los primeros 4 registros para los 4 días.
             const dayData = tiempo.list[i * 8]; // Usamos i * 8 para tomar datos aproximadamente cada 24 horas (3 horas * 8 = 24 horas)
 
@@ -128,7 +125,7 @@ $(document).ready(function () {
                             </div>
                                 <div class="row">
                                 <div class="col">
-                                    <p>Viento: ${dayData.wind.speed} m/s, Dirección: ${dayData.wind.deg}°</p>
+                                    <p>Viento: ${dayData.wind.speed} m/s, Dirección: ${direccionViento(dayData.wind.deg)}</p>
                                 </div>
                                 </div>
                           </div>
@@ -220,15 +217,15 @@ $(document).ready(function () {
         <div class="container">
           <div class="row">
             <div class="col">
-              <h4>Sensación térmica: ${(dayData.main.feels_like - 273.15).toFixed(1)}ºC</h4>
+              <h4 class="pb-3">Sensación térmica: ${(dayData.main.feels_like - 273.15).toFixed(1)}ºC</h4>
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <p>Viento: ${dayData.wind.speed} m/s</p>
+              <p >Viento: ${dayData.wind.speed} m/s</p>
             </div>
             <div class="col">
-              <p>Dirección: ${dayData.wind.deg}°</p>
+              <p>Dirección: ${direccionViento(dayData.wind.deg)}</p>
             </div>
           </div>
           <div class="row">
@@ -250,45 +247,98 @@ $(document).ready(function () {
     }
 
     $('#btnUbicacion').on('click', function () {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                function (position) {
-                    // Obtener latitud y longitud del objeto position
-                    const latitud = position.coords.latitude;
-                    const longitud = position.coords.longitude;
-
-                    // Mostrar resultados en el HTML
-                    lat = latitud;
-                    lon = longitud;
-
-                    // Puedes ahora usar `latitud` y `longitud` en otras funciones
-                    //sacarTiempo();
-                    sacarTiempo();
-                },
-                function (error) {
-                    // Manejo de errores
-                    switch (error.code) {
-                        case error.PERMISSION_DENIED:
-                            alert("Permiso denegado por el usuario.");
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            alert("La información de ubicación no está disponible.");
-                            break;
-                        case error.TIMEOUT:
-                            alert("La solicitud de ubicación ha caducado.");
-                            break;
-                        case error.UNKNOWN_ERROR:
-                            alert("Error desconocido al obtener ubicación.");
-                            break;
-                    }
-                }
-            );
-        } else {
-            alert("La geolocalización no es soportada por este navegador.");
-        }
-    });
-
-
-
+      // Verifica si el navegador admite geolocalización
+      if (navigator.geolocation) {
+          // Revisa si se ha otorgado o denegado el permiso previamente
+          const permisosConcedidos = localStorage.getItem('permisoGeolocalizacion');
+  
+          // Si el permiso es "concedido", usamos la geolocalización sin preguntar nuevamente
+          if (permisosConcedidos === 'concedido') {
+              obtenerUbicacion();
+          } else {
+              // Solicitamos la geolocalización y guardamos el resultado
+              navigator.geolocation.getCurrentPosition(
+                  function (position) {
+                      // Guardar los permisos en localStorage si se otorgan permanentemente
+                      localStorage.setItem('permisoGeolocalizacion', 'concedido');
+  
+                      // Obtener latitud y longitud
+                      const latitud = position.coords.latitude;
+                      const longitud = position.coords.longitude;
+  
+                      // Mostrar resultados en el HTML
+                      lat = latitud;
+                      lon = longitud;
+  
+                      // Llama a otra función si es necesario
+                      sacarTiempo();
+                  },
+                  function (error) {
+                      // Manejo de errores
+                      switch (error.code) {
+                          case error.PERMISSION_DENIED:
+                              alert("Permiso denegado por el usuario.");
+                              // Elimina cualquier registro previo de permisos concedidos
+                              localStorage.removeItem('permisoGeolocalizacion');
+                              break;
+                          case error.POSITION_UNAVAILABLE:
+                              alert("La información de ubicación no está disponible.");
+                              break;
+                          case error.TIMEOUT:
+                              alert("La solicitud de ubicación ha caducado.");
+                              break;
+                          case error.UNKNOWN_ERROR:
+                              alert("Error desconocido al obtener ubicación.");
+                              break;
+                      }
+                  }
+              );
+          }
+      } else {
+          alert("La geolocalización no es soportada por este navegador.");
+      }
+  });
+  
+  function obtenerUbicacion() {
+      navigator.geolocation.getCurrentPosition(
+          function (position) {
+              const latitud = position.coords.latitude;
+              const longitud = position.coords.longitude;
+  
+              // Mostrar resultados en el HTML
+              lat = latitud;
+              lon = longitud;
+  
+              sacarTiempo();
+          }
+      );
+  }
+  
+  function direccionViento(grados){
+    if (grados>337.5 || grados<=22.5 ){
+      return "Norte"
+    }
+    if (grados>22.5 && grados<=67.5){
+      return "Noreste"
+    }
+    if (grados>67.5 && grados<=112.5){
+      return "Este"
+    }
+    if (grados>112.5 && grados<=157.5){
+      return "Sureste"
+    }
+    if (grados>157.5&& grados<=202.5 ){
+      return "Sur"
+    }
+    if (grados>202.5 && grados<=247.5){
+      return "Suroeste"
+    }
+    if (grados>247.5 && grados<=292.5){
+      return "Oeste"
+    }
+    if (grados>292.5 && grados<=337.5){
+      return "Noroeste"
+    }
+  }
 
 });

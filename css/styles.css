@@ -1,18 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
-body {
-  background-image: url(../imagenes/istockphoto-1191343717-612x612.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position-y: 0;
-}
-
-.contenedor {
-  position: relative;
-  height: 100vb;
-  height: auto;
-}
-
+@import url("https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Quicksand:wght@300..700&display=swap");
 #cardHome {
   text-align: center;
   height: 600px;
@@ -34,17 +21,51 @@ body {
   font-weight: bold;
 }
 
-.btn-outline-secondary {
+.btn-outline-secondary, .nav-link {
   background-color: rgba(255, 255, 255, 0.362);
   color: rgba(19, 32, 43, 0.856);
 }
-.btn-outline-secondary:hover {
+.btn-outline-secondary:hover, .nav-link:hover {
   background-color: rgba(19, 32, 43, 0.856);
   color: rgb(255, 254, 253);
 }
 
 #pura {
   background-color: rgba(194, 245, 254, 0.748);
+}
+
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+.offcanvas {
+  font-family: "Quicksand";
+  color: rgba(19, 32, 43, 0.856);
+}
+.offcanvas h5 {
+  font-family: "Quicksand";
+  color: rgba(19, 32, 43, 0.856);
+  font-weight: bold;
+}
+
+#titulo {
+  font-family: "Edu AU VIC WA NT Pre";
+  color: rgba(19, 32, 43, 0.856);
+  font-weight: bold;
+}
+
+body {
+  background-image: url(../imagenes/istockphoto-1191343717-612x612.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position-y: 0;
+}
+
+.contenedor {
+  position: relative;
+  height: 100vb;
+  height: auto;
 }
 
 /*# sourceMappingURL=styles.css.map */

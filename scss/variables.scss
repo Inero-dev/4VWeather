@@ -1,9 +1,12 @@
 @use 'sass:color';
 $primary: rgb(255, 255, 255, 0.362);
 $secondary: rgba(78, 255, 196, 0.456);
+$claro: rgba(194, 245, 254, 0.748);
 $remark: rgba(19, 32, 43, 0.856);
 
 $card-bgc: $primary;
 $card-borderc: $secondary;
 
+$font-remark:  rgb(255, 254, 253);
 $font-color: $remark;
+

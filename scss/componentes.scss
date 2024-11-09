@@ -1,0 +1,52 @@
+#cardHome {
+    text-align: center;
+    height: 600px;
+
+    h1 {
+        padding-top: 13%;
+    }
+}
+
+.card {
+    background-color: $card-bgc;
+    border-color: $card-borderc;
+    height: auto;
+    @include letras("Quicksand", $font-color, 'f');
+
+    h1 {
+        @include letras("Quicksand", $font-color, 'True');
+    }
+}
+
+.btn-outline-secondary {
+    background-color: $primary;
+    color: $remark;
+
+    &:hover {
+        background-color: $remark;
+        color:$font-remark;
+    }
+}
+
+#pura {
+    background-color: $claro;
+}
+
+.goog-te-banner-frame {
+    display: none !important;
+}
+
+.nav-link{
+    @extend .btn-outline-secondary;
+}
+
+.offcanvas{
+    h5{
+        @include letras("Quicksand", $font-color, 'True')
+    }
+    @include letras("Quicksand", $font-color, 'False')
+}
+
+#titulo{
+    @include letras('Edu AU VIC WA NT Pre', $font-color, 'True')
+}

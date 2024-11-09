@@ -1,6 +1,9 @@
 @import './variables.scss';
 @import './mixins.scss';
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Quicksand:wght@300..700&display=swap');
+@import './componentes.scss';
+
 
 body{
     background-image: url(../imagenes/istockphoto-1191343717-612x612.jpg);
@@ -14,37 +17,4 @@ body{
     position: relative;
     height:100vb;
     height: auto;
-}
-
-#cardHome{
-  text-align: center;
-  height: 600px;
-    h1{
-        padding-top: 13%;
-    }
-}
-
-.card{
-    background-color: $card-bgc;
-    border-color: $card-borderc;
-    height: auto;
-    @include letras("Quicksand", $font-color, 'f');
-
-    h1{
-        @include letras("Quicksand", $font-color, 'True');
-    }
-}
-
-.btn-outline-secondary{
-    background-color: $primary;
-    color: $remark;
-
-    &:hover{
-        background-color: $remark;
-        color: rgb(255, 254, 253);
-    }
-}
-
-#pura{
-    background-color: rgba(194, 245, 254, 0.748);
 }
