@@ -8,7 +8,7 @@ $(document).ready(function () {
     });
 
     function cargarCiudades(ciudad, pais, state) {
-        const apiKey = '82f9e371a8ee6adf0e59110eb8a882c2'; // Verifica si es válida
+        const apiKey = 'f27acc15f51607bd6b7f2b51c26bdb81'; // Verifica si es válida
         const apiUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${ciudad}&limit=5&appid=${apiKey}`;
 
         return $.get(apiUrl, function (data) {
@@ -68,7 +68,7 @@ $(document).ready(function () {
     }
 
     function sacarTiempo() {
-        const apiKey = '82f9e371a8ee6adf0e59110eb8a882c2';
+        const apiKey = 'f27acc15f51607bd6b7f2b51c26bdb81';
         const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
         $.ajax({
