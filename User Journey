@@ -1,0 +1,24 @@
+1. Descubrimiento y Primera Visita  --> Contexto: El usuario se pregunta si necesita un paraguas hoy y decide buscar la predicción meteorológica.
+    Acción: Ingresa términos de búsqueda en Google como "clima hoy" o "pronóstico del tiempo en [Ciudad]".
+    Resultado: Encuentra un enlace a la página web de meteorología mundial y hace clic para ingresar.
+2. Landing Page - Selección de Ciudad  -->Contexto: Al llegar a la página, el usuario ve un diseño claro y simple con un menú desplegable para todas las acciones disponibles.
+    Acción: El usuario es recibido y decide entre las distintas opciones que tiene: Buscar una ciudad para vr sus predicciones meteorológicas / ver las predicciones en su ubicacion actual / traducir página
+    Resultado: La página muestra la respectiva informacion y/o formulario para nuevas acciones.
+3. Consulta del Clima Actual y Pronóstico Diario en una ciudad buscada  -->Contexto: El usuario desea conocer el clima actual y/o el de los siguientes 4 día en una ciudad en concreto.
+    Acción: Inserta el nombre de una ciudad --> Acción secundaria: la web da una ayuda mostrando el formato de País/Provincía/Ciudad las ciudades que empiecen o existan con ese nombre
+    Resultado: Obtiene la información sobre el clima de lo buscado.
+4. Observación de la información sacada  -->Contexto: Se le ha mostrado al usuario la información solicitada en distintas cards
+    Acción: Puede seleccionar en el pronostico de hoy diferentes pestañas en el card
+    Resultado: Encontrará información especifica del pronostico de hoy
+5. Consulta del Clima Actual y Pronóstico Diario en la ubicación actual del usuario  -->Contexto: El usuario desea conocer el clima actual y/o el de los siguientes 4 día en su ubicación actual.
+    Resultado: Se le mustra al usuario un POPwindow para otrorgar o no el derecho a acceder a su ubicacion actual
+    Acción: Hace clic en SÍ
+    Resultado: Obtiene la información sobre el clima de lo buscado.
+6. Observación de la información sacada  -->Contexto: Se le ha mostrado al usuario la información solicitada en distintas cards
+    Acción: Puede seleccionar en el pronostico de hoy diferentes pestañas en el card
+    Resultado: Encontrará información especifica del pronostico de hoy
+7. Traducir página  -->Contexto: El usuario quiere traducir la página al inglés u otro idioma. Debajo del botoón de traducir se muestra un pequeño formulario con 6 idiomas diferentes a los que se puede traducir la página
+    Accion: Eligue entre los diferentes idiomas
+    Resultado: Se traduce la página entera al idioma seleccionado. Además se abre un pequeño navbar donde tendremos la opcion de quitar la traducción 
+8. Vuelta al inicio  -->Contexto: El usuario queiere volver al inicio una vez que ha revisado la información necesaria.
+    Resultado: Se le muestra el inicio al usuario
